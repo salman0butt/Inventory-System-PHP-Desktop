@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/SamSung/Downloads/Compressed/phpdesktop-chrome-57.0-rc-php-7.1.3/Murtaza Mobiles/pos_db.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2523"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:maincategory"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE &quot;category&quot; (
+  &quot;cat_id&quot; integer NOT NULL,
+  &quot;name&quot; varchar(255) NOT NULL
+
+);
+INSERT INTO &quot;category&quot; VALUES(1, 'Mobiles');
+
+CREATE TABLE &quot;customers&quot; (
+  &quot;id&quot; integer NOT NULL,
+  &quot;customer_name&quot; varchar(255) NOT NULL,
+  &quot;father_name&quot; varchar(255) NOT NULL,
+  &quot;contact_no&quot; varchar(255) NOT NULL,
+  &quot;customer_address&quot; varchar(255) NOT NULL,
+  &quot;customer_cnic&quot; varchar(255) NOT NULL,
+  &quot;grunter_name&quot; varchar(255) NOT NULL,
+  &quot;gurnter_father_name&quot; varchar(255) NOT NULL,
+  &quot;grunter_contact_no&quot; varchar(255) NOT NULL,
+  &quot;grunter_address&quot; varchar(255) NOT NULL,
+  &quot;grunter_cnic&quot; varchar(255) NOT NULL
+
+);
+INSERT INTO &quot;customers&quot; VALUES(1, 'Shamraiz', 'Butt', '03127447000', 'Gujrat', '2420129956455', 'Self', '', '', '', '');
+
+CREATE TABLE &quot;invoice&quot; (
+  &quot;invoice_id&quot; integer NOT NULL,
+  &quot;customer_name&quot; varchar(100) NOT NULL,
+  &quot;customer_id&quot; integer DEFAULT NULL,
+  &quot;grunter&quot; varchar(255) DEFAULT NULL,
+  &quot;order_date&quot; date NOT NULL,
+  &quot;subtotal&quot; double NOT NULL,
+  &quot;tax&quot; double NOT NULL,
+  &quot;discount&quot; double NOT NULL,
+  &quot;total&quot; double NOT NULL,
+  &quot;paid&quot; double NOT NULL,
+  &quot;due&quot; double NOT NULL,
+  &quot;payment_type&quot; tinytext
+
+);
+INSERT INTO &quot;invoice&quot; VALUES(1, 'Shamraiz (Butt)', 1, 'Self', '2020-07-17', 34000, 0, 0, 34000, 34000, 0, 'Cash');
+INSERT INTO &quot;invoice&quot; VALUES(2, 'Shamraiz (Butt)', 1, 'Self', '2020-06-17', 17000, 0, 0, 17000, 17000, 0, 'Cash');
+
+CREATE TABLE &quot;invoice_details&quot; (
+  &quot;id&quot; integer NOT NULL,
+  &quot;invoice_id&quot; integer NOT NULL,
+  &quot;product_id&quot; integer NOT NULL,
+  &quot;product_name&quot; varchar(100) NOT NULL,
+  &quot;product_imei&quot; varchar(255) NOT NULL,
+  &quot;qty&quot; integer NOT NULL,
+  &quot;price&quot; double NOT NULL,
+  &quot;order_date&quot; date NOT NULL
+
+);
+INSERT INTO &quot;invoice_details&quot; VALUES(1, 1, 1, 'Vivo Y91D', '123456,789101112,13141516,17181920,2122232425', 2, 17000, '2020-07-17');
+INSERT INTO &quot;invoice_details&quot; VALUES(2, 2, 1, 'Vivo Y91D', '123456', 1, 17000, '2020-06-17');
+
+CREATE TABLE &quot;payments&quot; (
+  &quot;id&quot; integer NOT NULL,
+  &quot;invoice_id&quot; integer NOT NULL,
+  &quot;payment&quot; double NOT NULL,
+  &quot;due&quot; double NOT NULL,
+  &quot;date&quot; date NOT NULL
+
+);
+CREATE TABLE &quot;products&quot; (
+  &quot;pid&quot; integer NOT NULL,
+  &quot;p_name&quot; varchar(255) NOT NULL,
+  &quot;p_category&quot; varchar(255) NOT NULL,
+  &quot;purchase_price&quot; float NOT NULL,
+  &quot;sale_price&quot; float NOT NULL,
+  &quot;pstock&quot; integer NOT NULL,
+  &quot;pdescription&quot; varchar(255) NOT NULL,
+  &quot;pimage&quot; varchar(255) DEFAULT NULL
+
+);
+INSERT INTO &quot;products&quot; VALUES(1, 'Vivo Y91D', 'Mobiles', 15450, 17000, 6, '', 'no-image.png');
+
+CREATE TABLE &quot;product_imei&quot; (
+  &quot;id&quot; integer NOT NULL,
+  &quot;product_id&quot; varchar(255) NOT NULL,
+  &quot;imei&quot; varchar(255) NOT NULL
+
+);
+INSERT INTO &quot;product_imei&quot; VALUES(1, '1', '123456');
+INSERT INTO &quot;product_imei&quot; VALUES(2, '1', '789101112');
+INSERT INTO &quot;product_imei&quot; VALUES(3, '1', '13141516');
+INSERT INTO &quot;product_imei&quot; VALUES(4, '1', '17181920');
+INSERT INTO &quot;product_imei&quot; VALUES(5, '1', '2122232425');
+INSERT INTO &quot;product_imei&quot; VALUES(6, '1', '000');
+INSERT INTO &quot;product_imei&quot; VALUES(7, '1', '0000');
+INSERT INTO &quot;product_imei&quot; VALUES(8, '1', '00000');
+INSERT INTO &quot;product_imei&quot; VALUES(9, '1', '000000');
+
+CREATE TABLE &quot;purchase_invoice&quot; (
+  &quot;invoice_id&quot; integer NOT NULL,
+  &quot;supplier_name&quot; varchar(100) NOT NULL,
+  &quot;supplier_id&quot; integer DEFAULT NULL,
+  &quot;purchase_date&quot; date NOT NULL,
+  &quot;subtotal&quot; double(22,0) NOT NULL,
+  &quot;tax&quot; double(22,0) NOT NULL,
+  &quot;discount&quot; double(22,0) NOT NULL,
+  &quot;total&quot; double(22,0) NOT NULL,
+  &quot;paid&quot; double(22,0) NOT NULL,
+  &quot;due&quot; double(22,0) NOT NULL,
+  &quot;payment_type&quot; tinytext
+
+);
+INSERT INTO &quot;purchase_invoice&quot; VALUES(1, 'Malik Mobiles (Malik)', 1, '2020-07-17', 61800, 0, 0, 61800, 61800, 0, 'Cash');
+
+CREATE TABLE &quot;purchase_invoice_details&quot; (
+  &quot;id&quot; integer NOT NULL,
+  &quot;invoice_id&quot; integer NOT NULL,
+  &quot;product_id&quot; integer NOT NULL,
+  &quot;product_name&quot; varchar(100) NOT NULL,
+  &quot;product_imei&quot; varchar(255) NOT NULL,
+  &quot;qty&quot; integer NOT NULL,
+  &quot;price&quot; double(22,0) NOT NULL,
+  &quot;purchase_date&quot; date NOT NULL
+
+);
+INSERT INTO &quot;purchase_invoice_details&quot; VALUES(1, 1, 1, 'Vivo Y91D', '000,0000,00000,000000', 4, 15450, '2020-07-17');
+
+CREATE TABLE &quot;suppliers&quot; (
+  &quot;id&quot; integer NOT NULL,
+  &quot;supplier_name&quot; varchar(255) DEFAULT NULL,
+  &quot;father_name&quot; varchar(255) DEFAULT NULL,
+  &quot;contact_no&quot; varchar(255) DEFAULT NULL,
+  &quot;supplier_address&quot; varchar(255) DEFAULT NULL
+
+);
+INSERT INTO &quot;suppliers&quot; VALUES(1, 'Malik Mobiles', 'Malik', '03456999988', 'Gujrat');
+
+CREATE TABLE &quot;users&quot; (
+  &quot;id&quot; integer NOT NULL,
+  &quot;username&quot; varchar(255) NOT NULL,
+  &quot;email&quot; varchar(255) NOT NULL,
+  &quot;password&quot; varchar(255) NOT NULL,
+  &quot;role&quot; varchar(50) NOT NULL
+
+);
+INSERT INTO &quot;users&quot; VALUES(1, 'salman', 'salman@gmail.com', 'salman123', 'admin');
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
